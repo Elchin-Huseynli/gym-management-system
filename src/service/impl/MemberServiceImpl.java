@@ -1,5 +1,6 @@
 package service.impl;
 
+import exception.MemberAlreadyExitsException;
 import model.Member;
 import repository.MemberRepository;
 import repository.impl.MemberRepositoryImpl;
@@ -18,8 +19,22 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void addMember() {
-        memberRepository.addMember(fillMember());
-        System.out.println("Member added successfully!");
+        Member member = fillMember();
+        List<Member> members = memberRepository.showMembers();
+        boolean isAdd = false;
+        for (Member member1 : members) {
+            if (member.getFin().equals(member1.getFin())) {
+                isAdd = true;
+            }
+        }
+        if (!isAdd) {
+            memberRepository.addMember(member);
+            System.out.println("Member added successfully!");
+        }
+        else {
+            throw new MemberAlreadyExitsException();
+        }
+
     }
 
     @Override

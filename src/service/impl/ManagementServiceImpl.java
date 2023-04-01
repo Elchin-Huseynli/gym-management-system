@@ -1,6 +1,7 @@
 package service.impl;
 
 import exception.InvalidOptionException;
+import exception.MemberAlreadyExitsException;
 import exception.NotFoundMemberException;
 import service.ManagementService;
 import util.MenuUtil;
@@ -28,7 +29,7 @@ public class ManagementServiceImpl implements ManagementService {
                     }
                 }
             }
-            catch (NotFoundMemberException | InvalidOptionException | InputMismatchException e) {
+            catch (NotFoundMemberException | InvalidOptionException | MemberAlreadyExitsException | InputMismatchException e) {
                 System.out.println(e.getMessage());
             }
         }
